@@ -35,7 +35,9 @@
     "eject": "craco eject",
     "lint": "eslint './src/**/*.{ts,tsx,js,jsx}'",
     "lint:fix": "eslint --fix './src/**/*.{ts,tsx,js,jsx}'",
-    "prettier": "prettier --write --config ./.prettierrc './src/**/*.{ts,tsx}'"
+    "prettier": "prettier --write --config ./.prettierrc './src/**/*.{ts,tsx}'",
+    "storybook": "start-storybook -p 6006 -s public --no-dll",
+    "build-storybook": "build-storybook -s public --no-dll"
   },
   "browserslist": {
     "production": [
@@ -50,8 +52,17 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@storybook/addon-actions": "^6.0.28",
+    "@storybook/addon-contexts": "^5.3.21",
+    "@storybook/addon-essentials": "^6.1.0-beta.6",
+    "@storybook/addon-links": "^6.1.0-beta.6",
+    "@storybook/node-logger": "^6.1.0-beta.6",
+    "@storybook/preset-create-react-app": "^3.1.5",
+    "@storybook/react": "^6.1.0-beta.6",
     "@typescript-eslint/eslint-plugin": "4.4.0",
     "@typescript-eslint/parser": "4.4.0",
+    "babel-loader": "^8.1.0",
     "eslint-config-airbnb": "18.2.0",
     "eslint-config-prettier": "6.13.0",
     "eslint-plugin-import": "2.22.1",
@@ -61,7 +72,8 @@
     "eslint-plugin-react-hooks": "4.1.2",
     "husky": "^4.3.0",
     "lint-staged": "^10.5.1",
-    "prettier": "^2.1.2"
+    "prettier": "^2.1.2",
+    "react-is": "^17.0.1"
   },
   "husky": {
     "hooks": {

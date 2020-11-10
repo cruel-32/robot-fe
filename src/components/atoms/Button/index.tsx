@@ -14,7 +14,9 @@ const StyledButton = styled(Button)`
   }
 `;
 
-export default (props: ButtonProps) => {
+export default (
+  props: Omit<ButtonProps, 'color' | 'startIcon' | 'endIcon'>,
+) => {
   const { children } = props;
   return <StyledButton {...props}>{children}</StyledButton>;
 };
