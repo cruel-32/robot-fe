@@ -1,20 +1,17 @@
 import { DefaultTheme } from 'styled-components';
+import { createMuiTheme, Theme } from '@material-ui/core/styles';
 
 export const defaultTheme: DefaultTheme = {
   palette: {
-    primary: '#6793e5',
-    secondary: '#444444',
+    primary: '#90caf9',
+    secondary: '#f48fb1',
+    error: '#f44336',
+    warning: '#ff9800',
+    info: '#2196f3',
+    success: '#4caf50',
     disabled: '#777777',
-    warning: '#dde567',
-    error: '#e56782',
-    success: '#67e578',
     typography: '#333333',
     hover: '#888888',
-    common: {
-      mainBackGround: '#fff',
-      secondaryBackGround: '#cccccc',
-      thirdlyBackGround: '#121212',
-    },
   },
   fontWeight: {
     thin: 100,
@@ -33,21 +30,52 @@ export const defaultTheme: DefaultTheme = {
   },
 };
 
+export const materialDefaultTheme: Theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: '#a6d4fa',
+      main: '#90caf9',
+      dark: '#648dae',
+    },
+    secondary: {
+      light: '#f6a5c0',
+      main: '#f48fb1',
+      dark: '#aa647b',
+    },
+    error: {
+      light: '#e57373',
+      main: '#f44336',
+      dark: '#d32f2f',
+    },
+    warning: {
+      light: '#ffb74d',
+      main: '#ff9800',
+      dark: '#f57c00',
+    },
+    info: {
+      light: '#64b5f6',
+      main: '#2196f3',
+      dark: '#1976d2',
+    },
+    success: {
+      light: '#81c784',
+      main: '#4caf50',
+      dark: '#388e3c',
+    },
+  },
+});
+
 export const darkTheme: DefaultTheme = {
   ...defaultTheme,
   palette: {
-    primary: '#6793e5',
-    secondary: '#444444',
+    primary: '#90caf9',
+    secondary: '#f48fb1',
+    error: '#f44336',
+    warning: '#ff9800',
+    info: '#2196f3',
+    success: '#4caf50',
     disabled: '#777777',
-    warning: '#dde567',
-    error: '#e56782',
-    success: '#67e578',
-    typography: '#fff',
-    hover: '#cccccc',
-    common: {
-      mainBackGround: '#121212',
-      secondaryBackGround: '#cccccc',
-      thirdlyBackGround: '#fff',
-    },
+    typography: '#333333',
+    hover: '#888888',
   },
 };

@@ -5,17 +5,13 @@ declare module 'styled-components' {
     palette: {
       primary: string;
       secondary: string;
-      disabled: string;
-      warning: string;
       error: string;
+      warning: string;
+      info: string;
       success: string;
+      disabled: string;
       typography: string;
       hover: string;
-      common: {
-        mainBackGround: string;
-        secondaryBackGround: string;
-        thirdlyBackGround: string;
-      };
     };
     fontWeight: {
       thin: number;
