@@ -5,8 +5,9 @@ import Button, { ButtonProps } from '@material-ui/core/Button';
 import Icon from '@/components/atoms/Icon';
 
 export type IconButtonProps = {
+  iconPlace: 'left' | 'right' | 'both';
   icon: string;
-} & ButtonProps;
+} & Omit<ButtonProps, 'startIcon' | 'endIcon'>;
 
 const StyledIconButton = styled(Button)`
   color: ${({ theme }) => theme.palette.typography};
@@ -18,12 +19,19 @@ const StyledIconButton = styled(Button)`
 `;
 
 export default (props: IconButtonProps) => {
-  const { children, icon, color, disabled } = props;
+  const { children, icon, color, disabled, iconPlace = 'left' } = props;
   return (
     <StyledIconButton
       {...props}
       startIcon={
-        icon && <Icon icon={icon} color={disabled ? 'disabled' : color} />
+        iconPlace !== 'right' && (
+          <Icon icon={icon} color={disabled ? 'disabled' : color} />
+        )
+      }
+      endIcon={
+        iconPlace !== 'left' && (
+          <Icon icon={icon} color={disabled ? 'disabled' : color} />
+        )
       }
     >
       {children}

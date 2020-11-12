@@ -1,9 +1,9 @@
 /* eslint-disable react/require-default-props */
 import React from 'react';
 import styled from 'styled-components';
-import Icon, { IconProps as oriIconProps } from '@material-ui/core/Icon';
+import Icon, { IconProps as originIconProps } from '@material-ui/core/Icon';
 
-export type IconProps = { icon: string } & Omit<oriIconProps, 'children'>;
+export type IconProps = { icon: string } & Omit<originIconProps, 'children'>;
 
 const StyledIcon = styled(Icon)`
   color: ${({ theme }) => theme.palette.typography};
