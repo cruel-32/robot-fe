@@ -1,5 +1,7 @@
 import { DefaultTheme } from 'styled-components';
-import { createMuiTheme, Theme } from '@material-ui/core/styles';
+import { createMuiTheme, Theme, ThemeProvider } from '@material-ui/core/styles';
+
+export { ThemeProvider as MaterialThemeProvider };
 
 export const defaultTheme: DefaultTheme = {
   palette: {

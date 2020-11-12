@@ -6,7 +6,7 @@ import InputLabel, {
 } from '@material-ui/core/InputLabel';
 
 export type LabelProps = Omit<originInputLabelProps, 'multiline'>;
-const StyledLabel = styled(InputLabel)`
+const StyledLabel = styled(InputLabel)<LabelProps>`
   color: ${({ theme }) => theme.palette.typography};
   /* box-shadow: 0 4px 6px rgba(10, 10, 12, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08); */
   &:hover {
