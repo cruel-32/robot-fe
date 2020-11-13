@@ -1,10 +1,10 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import Radio, { RadioProps } from '@/components/atoms/Radio';
+import Checkbox, { CheckboxProps } from '@/components/atoms/Checkbox';
 
 export default {
-  title: 'Example/Atoms/Radio',
-  component: Radio,
+  title: 'Example/Atoms/Checkbox',
+  component: Checkbox,
   argTypes: {
     size: {
       control: {
@@ -22,19 +22,23 @@ export default {
   },
 } as Meta;
 
-const Template: Story<RadioProps> = (args) => <Radio {...args} />;
+const Template: Story<CheckboxProps> = (args) => <Checkbox {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
   checked: false,
+  checkedIcon: undefined,
+  classes: undefined,
   color: 'default',
   disabled: false,
   disableRipple: false,
+  icon: undefined,
   id: undefined,
+  indeterminate: undefined,
+  indeterminateIcon: undefined,
   inputProps: undefined,
   inputRef: undefined,
-  name: 'testRadio',
   required: false,
   size: 'medium',
-  value: '1',
+  value: undefined,
 };

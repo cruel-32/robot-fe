@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Radio, { RadioProps as originRadioProps } from '@material-ui/core/Radio';
 
-export type RadioProps = Omit<originRadioProps, 'checkedIcon' | 'icon'>;
+export type RadioProps = Omit<originRadioProps, 'children'>;
 
 const StyledRadio = styled(Radio)<RadioProps>`
   color: ${({ theme }) => theme.palette.typography};
@@ -12,4 +12,8 @@ const StyledRadio = styled(Radio)<RadioProps>`
   }
 `;
 
-export default (props: RadioProps) => <StyledRadio {...props} />;
+export default (props: RadioProps) => {
+  const { color = 'primary' } = props;
+
+  return <StyledRadio {...props} color={color} />;
+};

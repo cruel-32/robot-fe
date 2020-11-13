@@ -5,7 +5,7 @@ import Input, { InputProps as originInputProps } from '@material-ui/core/Input';
 
 export type TextAreaProps = Omit<
   originInputProps,
-  'multiline' | 'startAdornment' | 'type' | 'inputComponent' | 'inputProps'
+  'multiline' | 'type' | 'inputComponent' | 'inputProps'
 >;
 const StyledInput = styled(Input)`
   color: ${({ theme }) => theme.palette.typography};
