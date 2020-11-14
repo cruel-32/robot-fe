@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useContext, createContext } from 'react';
 import { types, Instance, onSnapshot } from 'mobx-state-tree';
 
@@ -28,7 +29,7 @@ export const rootStore = initialState;
 
 onSnapshot(rootStore, (snapshot) => {
   console.log('Snapshot: ', snapshot);
-  localStorage.setItem('rootState', JSON.stringify(snapshot));
+  // localStorage.setItem('rootState', JSON.stringify(snapshot));
 });
 
 export type RootInstance = Instance<typeof RootModel>;
