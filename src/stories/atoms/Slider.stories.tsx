@@ -7,6 +7,8 @@ export default {
   title: 'Example/atoms/Slider',
   component: Slider,
   argTypes: {
+    onChange: { action: 'onChange' },
+    onChangeCommitted: { action: 'onChangeCommitted' },
     color: {
       control: {
         type: 'select',
@@ -20,8 +22,6 @@ const Template: Story<SliderProps> = (args) => <Slider {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  onChange: () => {},
-  onChangeCommitted: () => {},
   scale: (value: number) => value,
   value: undefined,
   color: 'primary',
@@ -38,8 +38,6 @@ Default.args = {
 
 export const Range = Template.bind({});
 Range.args = {
-  onChange: () => {},
-  onChangeCommitted: () => {},
   scale: (value: number) => value,
   value: [1, 10],
   color: 'primary',

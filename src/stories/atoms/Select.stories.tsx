@@ -21,16 +21,9 @@ export default {
   title: 'Example/Atoms/Select',
   component: Select,
   argTypes: {
-    /** 리액트 기본적인 이벤트 props는 작성하지 않아도 됩니다. 아래는 테스트용 코드 */
-    // onClick: {
-    //   action: 'clicked',
-    // },
-    // onFocus: {
-    //   action: 'focusin',
-    // },
-    // onBlur: {
-    //   action: 'focusout',
-    // },
+    onChange: { action: 'onChange' },
+    onClose: { action: 'onClose' },
+    onOpen: { action: 'onOpen' },
     variant: {
       control: {
         type: 'select',
@@ -63,9 +56,6 @@ Default.args = {
   MenuProps: undefined,
   multiple: false,
   native: undefined,
-  onChange: undefined,
-  onClose: undefined,
-  onOpen: undefined,
   open: undefined,
   SelectDisplayProps: undefined,
   variant: 'standard',

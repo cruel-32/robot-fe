@@ -6,6 +6,7 @@ export default {
   title: 'Example/Atoms/Radio',
   component: Radio,
   argTypes: {
+    onChange: { action: 'onChange' },
     size: {
       control: {
         type: 'select',

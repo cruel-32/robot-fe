@@ -7,16 +7,13 @@ export default {
   title: 'Example/Atoms/DatePicker',
   component: DatePicker,
   argTypes: {
-    /** 리액트 기본적인 이벤트 props는 작성하지 않아도 됩니다. 아래는 테스트용 코드 */
-    // onClick: {
-    //   action: 'clicked',
-    // },
-    // onFocus: {
-    //   action: 'focusin',
-    // },
-    // onBlur: {
-    //   action: 'focusout',
-    // },
+    onChange: { action: 'onChange' },
+    onAccept: { action: 'onAccept' },
+    onClose: { action: 'onClose' },
+    onError: { action: 'onError' },
+    onMonthChange: { action: 'onMonthChange' },
+    onYearChange: { action: 'onYearChange' },
+    renderDay: { action: 'renderDay' },
     inputVariant: {
       control: {
         type: 'select',
@@ -48,12 +45,6 @@ const Template: Story<DatePickerProps> = (args) => <DatePicker {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  onChange: () => {},
-  onAccept: () => {},
-  onClose: () => {},
-  onError: () => {},
-  onMonthChange: () => {},
-  onYearChange: () => {},
   inputValue: undefined,
   value: new Date(),
   allowKeyboardControl: true,

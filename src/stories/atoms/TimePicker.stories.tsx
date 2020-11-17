@@ -7,16 +7,12 @@ export default {
   title: 'Example/Atoms/Timepicker',
   component: Timepicker,
   argTypes: {
-    /** 리액트 기본적인 이벤트 props는 작성하지 않아도 됩니다. 아래는 테스트용 코드 */
-    // onClick: {
-    //   action: 'clicked',
-    // },
-    // onFocus: {
-    //   action: 'focusin',
-    // },
-    // onBlur: {
-    //   action: 'focusout',
-    // },
+    onChange: { action: 'onChange' },
+    onAccept: { action: 'onAccept' },
+    onClose: { action: 'onClose' },
+    onError: { action: 'onError' },
+    rifmFormatter: { action: 'rifmFormatter' },
+    shouldDisableDate: { action: 'shouldDisableDate' },
     inputVariant: {
       control: {
         type: 'select',
@@ -49,10 +45,6 @@ const Template: Story<TimePickerProps> = (args) => <Timepicker {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   value: new Date(),
-  onChange: () => {},
-  onAccept: () => {},
-  onClose: () => {},
-  onError: () => {},
   ampm: true,
   inputValue: undefined,
   autoOk: true,

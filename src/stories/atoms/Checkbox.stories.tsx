@@ -6,6 +6,7 @@ export default {
   title: 'Example/Atoms/Checkbox',
   component: Checkbox,
   argTypes: {
+    onChange: { action: 'onChange' },
     size: {
       control: {
         type: 'select',

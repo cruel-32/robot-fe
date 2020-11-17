@@ -6,16 +6,7 @@ export default {
   title: 'Example/Atoms/Button',
   component: Button,
   argTypes: {
-    /** 리액트 기본적인 이벤트 props는 작성하지 않아도 됩니다. 아래는 테스트용 코드 */
-    // onClick: {
-    //   action: 'clicked',
-    // },
-    // onFocus: {
-    //   action: 'focusin',
-    // },
-    // onBlur: {
-    //   action: 'focusout',
-    // },
+    onClick: { action: 'clicked' },
     size: {
       control: {
         type: 'select',

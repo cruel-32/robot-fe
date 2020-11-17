@@ -6,6 +6,9 @@ export default {
   title: 'Example/Atoms/TextArea',
   component: TextArea,
   argTypes: {
+    onChange: { action: 'onChange' },
+    onFocus: { action: 'onFocus' },
+    onBlur: { action: 'onBlur' },
     color: {
       control: {
         type: 'select',

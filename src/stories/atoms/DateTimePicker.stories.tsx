@@ -9,16 +9,15 @@ export default {
   title: 'Example/Atoms/DateTimePicker',
   component: DateTimePicker,
   argTypes: {
-    /** 리액트 기본적인 이벤트 props는 작성하지 않아도 됩니다. 아래는 테스트용 코드 */
-    // onClick: {
-    //   action: 'clicked',
-    // },
-    // onFocus: {
-    //   action: 'focusin',
-    // },
-    // onBlur: {
-    //   action: 'focusout',
-    // },
+    onChange: { action: 'onChange' },
+    onAccept: { action: 'onAccept' },
+    onOpen: { action: 'onOpen' },
+    onClose: { action: 'onClose' },
+    onError: { action: 'onError' },
+    onMonthChange: { action: 'onMonthChange' },
+    onYearChange: { action: 'onYearChange' },
+    renderDay: { action: 'renderDay' },
+    rifmFormatter: { action: 'rifmFormatter' },
     inputVariant: {
       control: {
         type: 'select',
