@@ -73,6 +73,9 @@ export default {
         options: ['default', 'inherit', 'primary', 'secondary'],
       },
     },
+    iconColor: {
+      control: 'color',
+    },
   },
 } as Meta;
 
@@ -90,4 +93,6 @@ Default.args = {
   fullWidth: false,
   href: '',
   size: 'small',
+  iconColor: undefined,
+  iconSize: undefined,
 };

@@ -1,36 +1,52 @@
+/* eslint-disable indent */
 /* eslint-disable @typescript-eslint/ban-types */
 import React from 'react';
 import styled from 'styled-components';
 import Button, { ButtonProps } from '@material-ui/core/Button';
 import Icon from '@/components/atoms/Icon';
 
-export type IconButtonProps = {
-  iconPlace: 'left' | 'right' | 'both';
+export type IconButtonProps = Omit<ButtonProps, 'startIcon' | 'endIcon'> & {
   icon: string;
-} & Omit<ButtonProps, 'startIcon' | 'endIcon'>;
+  iconPlace?: 'left' | 'right' | 'both';
+  iconColor?: string;
+  iconSize?: string;
+};
 
 const StyledIconButton = styled(Button)`
   color: ${({ theme }) => theme.palette.typography};
-  /* box-shadow: 0 4px 6px rgba(10, 10, 12, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08); */
-  padding: 7px 14px;
-  &:hover {
-    color: ${({ theme }) => theme.palette.hover};
-  }
+  min-width: 40px !important;
 `;
 
 export default (props: IconButtonProps) => {
-  const { children, icon, color, disabled, iconPlace = 'left' } = props;
+  const {
+    children,
+    icon,
+    color,
+    iconColor,
+    iconSize,
+    disabled,
+    iconPlace = 'left',
+  } = props;
   return (
     <StyledIconButton
       {...props}
       startIcon={
         iconPlace !== 'right' && (
-          <Icon icon={icon} color={disabled ? 'disabled' : color} />
+          <Icon
+            icon={icon}
+            iconSize={iconSize}
+            color={disabled ? 'disabled' : color}
+            iconColor={disabled ? 'disabled' : iconColor}
+          />
         )
       }
       endIcon={
         iconPlace !== 'left' && (
-          <Icon icon={icon} color={disabled ? 'disabled' : color} />
+          <Icon
+            icon={icon}
+            color={disabled ? 'disabled' : color}
+            iconColor={disabled ? 'disabled' : iconColor}
+          />
         )
       }
     >

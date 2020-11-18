@@ -53,6 +53,9 @@ export default {
         ],
       },
     },
+    iconColor: {
+      control: 'color',
+    },
     color: {
       control: {
         type: 'select',
@@ -86,6 +89,6 @@ const Template: Story<IconProps> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   icon: 'add_circle',
-  color: 'inherit',
-  fontSize: 'inherit',
+  iconColor: undefined,
+  iconSize: undefined,
 };
