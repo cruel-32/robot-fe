@@ -1,6 +1,10 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import Grid, { GridProps, ColDef, RowsProp } from '@/components/atoms/Grid';
+import DataGrid, {
+  DataGridProps,
+  ColDef,
+  RowsProp,
+} from '@/components/atoms/DataGrid';
 
 const defaultColumns: ColDef[] = [
   { field: 'id', headerName: 'ID', width: 70 },
@@ -21,8 +25,8 @@ const defaultRows: RowsProp = [
 ];
 
 export default {
-  title: 'Example/atoms/Grid',
-  component: Grid,
+  title: 'Example/atoms/DataGrid',
+  component: DataGrid,
   argTypes: {
     onCellClick: { action: 'onCellClick' },
     onCellHover: { action: 'onCellHover' },
@@ -50,7 +54,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<GridProps> = (args) => <Grid {...args} />;
+const Template: Story<DataGridProps> = (args) => <DataGrid {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

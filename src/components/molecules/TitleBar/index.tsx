@@ -1,52 +1,65 @@
 import React, { ReactNode } from 'react';
-import Box, { BoxItem, BoxProps, BoxItemProps } from '@/components/atoms/Box';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+
+import GridBox from '@/components/atoms/GridBox';
 import Title, { TitleProps } from '@/components/atoms/Title';
 import Icon, { IconProps } from '@/components/atoms/Icon';
 
 export type TitleBarProps = {
   children?: ReactNode;
-} & BoxProps &
-  BoxItemProps &
-  TitleProps &
+} & TitleProps &
   Omit<IconProps, 'color'>;
 
-export default (props: TitleBarProps) => {
+const useStyles = makeStyles(
+  createStyles({
+    leftGrid: {
+      flex: 'none',
+    },
+    centerGrid: {
+      flex: 'none',
+    },
+    rightGrid: {
+      flex: 'none',
+      marginLeft: 'auto',
+    },
+  })
+);
+
+const TitleBar = (props: TitleBarProps) => {
   const {
     color,
-    backgroundColor,
     title,
     headline,
     fontSize,
     icon,
     iconColor,
-    iconSize = '32px',
-    border,
-    borderRadius,
-    padding,
+    iconSize = '30px',
     children,
   } = props;
 
+  // display="flex"
+  // alignContent="center"
+  // backgroundColor={backgroundColor}
+  // border={border}
+  // borderRadius={borderRadius}
+  // padding={padding}
+  // justifyContent="space-between"
+
+  const classes = useStyles();
+
   return (
-    <Box
-      display="flex"
-      alignContent="center"
-      backgroundColor={backgroundColor}
-      border={border}
-      borderRadius={borderRadius}
-      padding={padding}
-      justifyContent="space-between"
-    >
+    <GridBox container justify="space-between" className={classes.leftGrid}>
       {icon && (
-        <BoxItem flex="none">
+        <GridBox item>
           <Icon
             icon={icon}
             iconColor={iconColor}
             iconSize={iconSize}
             margin="2px 0 0 5px"
           />
-        </BoxItem>
+        </GridBox>
       )}
-      <BoxItem flex="none">
+      <GridBox item className={classes.centerGrid}>
         <Title
           headline={headline}
           color={color}
@@ -55,10 +68,11 @@ export default (props: TitleBarProps) => {
         >
           {title}
         </Title>
-      </BoxItem>
-      <BoxItem flex="none" margin="0 0 0 auto">
+      </GridBox>
+      <GridBox item className={classes.rightGrid}>
         {children}
-      </BoxItem>
-    </Box>
+      </GridBox>
+    </GridBox>
   );
 };
+export default TitleBar;

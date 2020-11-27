@@ -60,8 +60,6 @@ Default.args = {
   SelectDisplayProps: undefined,
   variant: 'standard',
   value: '0003',
-  textProp: 'text',
-  valueProp: 'value',
   items,
 };
 
@@ -84,7 +82,5 @@ Multiple.args = {
   SelectDisplayProps: undefined,
   variant: 'standard',
   value: ['0003', '0004'],
-  textProp: 'text',
-  valueProp: 'value',
   items,
 };

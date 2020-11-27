@@ -13,6 +13,8 @@ export default {
         // https://material.io/resources/icons/?icon=image&style=baseline
         // 에서 확인 가능
         options: [
+          'account_circle',
+          'vpn_key',
           '3d_rotation',
           'accessibility',
           'accessibility_new',

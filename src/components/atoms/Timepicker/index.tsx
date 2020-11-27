@@ -15,7 +15,7 @@ const StyledTimePicker = styled(KeyboardTimePicker)<TimePickerProps>`
   }
 `;
 
-export default (props: TimePickerProps) => {
+const TimePicker = (props: TimePickerProps) => {
   const {
     format = 'HH:mm:ss',
     variant = 'inline',
@@ -35,3 +35,4 @@ export default (props: TimePickerProps) => {
     />
   );
 };
+export default TimePicker;

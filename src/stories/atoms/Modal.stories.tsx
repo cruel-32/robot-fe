@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable no-return-assign */
 import React, { useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';

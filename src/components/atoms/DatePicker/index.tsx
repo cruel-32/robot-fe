@@ -15,7 +15,7 @@ const StyledDatePicker = styled(KeyboardDatePicker)<DatePickerProps>`
   }
 `;
 
-export default (props: DatePickerProps) => {
+const DatePicker = (props: DatePickerProps) => {
   const {
     format = 'yyyy/MM/DD',
     variant = 'inline',
@@ -35,3 +35,4 @@ export default (props: DatePickerProps) => {
     />
   );
 };
+export default DatePicker;

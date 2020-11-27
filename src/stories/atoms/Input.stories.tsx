@@ -27,6 +27,12 @@ export default {
         options: ['text', 'email', 'tel', 'number', 'password', 'search'],
       },
     },
+    variant: {
+      control: {
+        type: 'select',
+        options: ['filled', 'outlined', 'standard'],
+      },
+    },
   },
 } as Meta;
 
@@ -40,17 +46,18 @@ Default.args = {
   autoFocus: false,
   color: 'primary',
   disabled: false,
-  disableUnderline: false,
-  endAdornment: undefined,
   error: false,
   fullWidth: false,
   id: undefined,
-  inputComponent: 'input',
   inputProps: undefined,
   inputRef: undefined,
   margin: 'dense',
   name: undefined,
-  readOnly: false,
   required: false,
   type: 'text',
+  classes: undefined,
+  defaultValue: undefined,
+  InputLabelProps: undefined,
+  InputProps: undefined,
+  size: undefined,
 };

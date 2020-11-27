@@ -80,7 +80,8 @@ const StyledHeadLine = {
     }
   `,
 };
-export default (props: TitleProps) => {
+
+const Title = (props: TitleProps) => {
   const { children, color, margin, padding, fontSize, headline = 'h1' } = props;
   const Headline = StyledHeadLine[headline];
 
@@ -92,3 +93,4 @@ export default (props: TitleProps) => {
     </>
   );
 };
+export default Title;

@@ -8,16 +8,16 @@ import {
 
 export type DateTimePickerProps = KeyboardDateTimePickerProps;
 
-const StyledDateTimePicker = styled(KeyboardDateTimePicker)<
-  DateTimePickerProps
->`
+const StyledDateTimePicker = styled(
+  KeyboardDateTimePicker
+)<DateTimePickerProps>`
   color: ${({ theme }) => theme.palette.typography};
   &:hover {
     color: ${({ theme }) => theme.palette.hover};
   }
 `;
 
-export default (props: DateTimePickerProps) => {
+const DateTimePicker = (props: DateTimePickerProps) => {
   const {
     format = 'yyyy/MM/DD HH:mm:ss',
     variant = 'inline',
@@ -37,3 +37,4 @@ export default (props: DateTimePickerProps) => {
     />
   );
 };
+export default DateTimePicker;

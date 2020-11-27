@@ -18,7 +18,7 @@ const StyledIconButton = styled(Button)`
   }
 `;
 
-export default (props: IconButtonProps) => {
+const IconButton = (props: IconButtonProps) => {
   const { children, icon, color, disabled, iconPlace = 'left' } = props;
   return (
     <StyledIconButton
@@ -38,3 +38,5 @@ export default (props: IconButtonProps) => {
     </StyledIconButton>
   );
 };
+
+export default IconButton;

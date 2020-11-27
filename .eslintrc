@@ -29,13 +29,17 @@
         "usePrettierrc": true
       }
     ],
-    // "prettier/prettier": "off",
     "import/prefer-default-export": "off",
     "react/prop-types": "off",
     "react/jsx-filename-extension": "off",
     "react/jsx-props-no-spreading": "off",
     "import/no-unresolved": "off",
-    "import/extensions": "off"
+    "import/extensions": "off",
+    "no-use-before-define": [0],
+    "function-paren-newline" : "off",
+    "implicit-arrow-linebreak" : "off",
+    "no-shadow" : "off",
+    "react-hooks/exhaustive-deps" : "off"
   },
   "overrides": [
     {
@@ -55,13 +59,13 @@
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-var-requires": "off",
-        "no-use-before-define": [0],
         "@typescript-eslint/no-use-before-define": [1],
         "@typescript-eslint/quotes": "off"
       }
     }
   ],
   "settings": {
+    "react": { "version": "detect" },
     "import/extensions": [
       ".js",
       ".jsx"

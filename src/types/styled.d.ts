@@ -1,14 +1,20 @@
 import 'styled-components';
 
+declare interface IColorSet {
+  light: string;
+  main: string;
+  dark: string;
+}
+
 declare module 'styled-components' {
   export interface DefaultTheme {
     palette: {
-      primary: string;
-      secondary: string;
-      error: string;
-      warning: string;
-      info: string;
-      success: string;
+      primary: string | IColorSet;
+      secondary: string | IColorSet;
+      error: string | IColorSet;
+      warning: string | IColorSet;
+      info: string | IColorSet;
+      success: string | IColorSet;
       disabled: string;
       typography: string;
       hover: string;

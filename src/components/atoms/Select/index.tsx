@@ -2,60 +2,49 @@
 import React from 'react';
 import styled from 'styled-components';
 import MenuItem from '@material-ui/core/MenuItem';
-import Select, {
-  SelectProps as originSelectProps,
+import OriginSelect, {
+  SelectProps as OriginSelectProps,
 } from '@material-ui/core/Select';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import Checkbox from '@/components/atoms/Checkbox';
 
-export type SelectProps = Omit<originSelectProps, 'input'> & {
-  items: object[];
-  valueProp?: string | number;
-  textProp?: string | number;
+export type SelectProps = Omit<OriginSelectProps, 'input'> & {
+  items: IFormDataType[];
 };
-const StyledSelect = styled(Select)`
+const StyledSelect = styled(OriginSelect)`
   color: ${({ theme }) => theme.palette.typography};
-  /* box-shadow: 0 4px 6px rgba(10, 10, 12, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08); */
   &:hover {
     color: ${({ theme }) => theme.palette.hover};
   }
 `;
 
-export default (props: SelectProps) => {
-  const {
-    textProp = 'text',
-    items,
-    multiple = false,
-    valueProp = 'value',
-    value,
-    renderValue,
-  } = props;
+const Select = (props: SelectProps) => {
+  const { items, multiple = false, value, renderValue } = props;
 
   const renderValues = (selected: any) => {
+    console.log('selected : ', selected);
     if (multiple) {
       return selected
-        .map((selectedValue: any) => {
-          const selectedItem: any = items.find(
-            (item: any) => item[valueProp] === selectedValue,
+        .map((selectedValue: IFormDataType) => {
+          const selectedItem: IFormDataType | undefined = items.find(
+            (item: IFormDataType) => item.value === selectedValue
           );
 
-          return selectedItem[textProp];
+          return selectedItem?.text;
         })
         .join(', ');
     }
     const selectedItem: any = items.find(
-      (item: any) => item[valueProp] === selected,
+      (item: IFormDataType) => item.value === selected
     );
-    return selectedItem[textProp];
+    return selectedItem.text;
   };
 
   return (
     <StyledSelect {...props} renderValue={renderValue || renderValues}>
-      {items.map((item: any) => {
-        const itemValue = item[valueProp] || item;
-        const itemText = item[textProp] || itemValue || item;
-        console.log('itemText', itemText);
+      {items.map((item: IFormDataType) => {
+        const { value: itemValue, text: itemText } = item;
 
         if (multiple) {
           return (
@@ -80,3 +69,4 @@ export default (props: SelectProps) => {
     </StyledSelect>
   );
 };
+export default Select;

@@ -4,10 +4,10 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import TitleBar, { TitleBarProps } from '@/components/molecules/TitleBar';
 import Icon from '@/components/atoms/Icon';
 
-import { materialDefaultTheme } from '@/theme';
+// import { materialDefaultTheme } from '@/theme';
 
 export default {
-  title: 'Example/Molecules/TitleBar',
+  title: 'Example/molecules/TitleBar',
   component: TitleBar,
   argTypes: {
     icon: {
@@ -64,16 +64,12 @@ const Template: Story<TitleBarProps> = (args) => <TitleBar {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  color: '#fff',
+  color: '#333',
   headline: 'h1',
   title: '타이틀바 테스트',
   icon: 'search',
-  iconColor: '#fff',
+  iconColor: '#333',
   iconSize: '32px',
-  border: `1px solid ${materialDefaultTheme.palette.primary.main}`,
-  borderRadius: '4px',
-  backgroundColor: materialDefaultTheme.palette.primary.dark,
-  padding: '4px',
 };
 
 const WithButtonTemplate: Story<TitleBarProps> = (args) => (
@@ -81,14 +77,14 @@ const WithButtonTemplate: Story<TitleBarProps> = (args) => (
     <Icon
       icon="close"
       iconColor="#fff"
-      iconSize="31px"
+      iconSize="28px"
       margin="2px 2px 0 0"
       onClick={() => alert('close')}
     />
     <Icon
       icon="add"
       iconColor="#fff"
-      iconSize="31px"
+      iconSize="28px"
       margin="2px 2px 0 0"
       onClick={() => alert('add')}
     />
@@ -96,14 +92,10 @@ const WithButtonTemplate: Story<TitleBarProps> = (args) => (
 );
 export const WithButton = WithButtonTemplate.bind({});
 WithButton.args = {
-  color: '#fff',
+  color: '#333',
   headline: 'h1',
   title: '타이틀바 테스트',
   icon: 'search',
-  iconColor: '#fff',
-  iconSize: '32px',
-  border: `1px solid ${materialDefaultTheme.palette.primary.main}`,
-  borderRadius: '4px',
-  backgroundColor: materialDefaultTheme.palette.primary.dark,
-  padding: '4px',
+  iconColor: '#333',
+  iconSize: '30px',
 };

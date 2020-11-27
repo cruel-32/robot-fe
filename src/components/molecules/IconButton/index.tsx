@@ -1,5 +1,3 @@
-/* eslint-disable indent */
-/* eslint-disable @typescript-eslint/ban-types */
 import React from 'react';
 import styled from 'styled-components';
 import Button, { ButtonProps } from '@material-ui/core/Button';
@@ -17,7 +15,7 @@ const StyledIconButton = styled(Button)`
   min-width: 40px !important;
 `;
 
-export default (props: IconButtonProps) => {
+const IconButton = (props: IconButtonProps) => {
   const {
     children,
     icon,
@@ -54,3 +52,4 @@ export default (props: IconButtonProps) => {
     </StyledIconButton>
   );
 };
+export default IconButton;
