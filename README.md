@@ -1,4 +1,4 @@
-# React Mobx-State-Tree boilerplate
+# React Project
 
 ## get started
 - node.js lts 13이상 버전 설치 (https://nodejs.org/en/)
