@@ -23,7 +23,6 @@ const Select = (props: SelectProps) => {
   const { items, multiple = false, value, renderValue } = props;
 
   const renderValues = (selected: any) => {
-    console.log('selected : ', selected);
     if (multiple) {
       return selected
         .map((selectedValue: IFormDataType) => {

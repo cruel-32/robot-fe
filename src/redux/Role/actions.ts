@@ -3,39 +3,49 @@ import { createAction, ActionType } from 'typesafe-actions';
 import { put, takeLatest } from 'redux-saga/effects';
 
 import { AxiosErrorHandler } from '@/helper';
-import { IRole, EditableType } from './reducer';
+import { actions as SystemActions } from '@/redux/System/actions';
+import { Role, EditableType } from './reducer';
 
-const FETCH_GET_ROLES_REQUEST = 'Role/FETCH_GET_ROLES_REQUEST';
-const FETCH_GET_ROLES_SUCCESS = 'Role/FETCH_GET_ROLES_SUCCESS';
-const FETCH_GET_ROLES_FAILURE = 'Role/FETCH_GET_ROLES_FAILURE';
-const FETCH_GET_ROLES_BY_ID_REQUEST = 'Role/FETCH_GET_ROLES_BY_ID_REQUEST';
-const FETCH_GET_ROLES_BY_ID_SUCCESS = 'Role/FETCH_GET_ROLES_BY_ID_SUCCESS';
-const FETCH_GET_ROLES_BY_ID_FAILURE = 'Role/FETCH_GET_ROLES_BY_ID_FAILURE';
-const FETCH_PUT_ROLE_REQUEST = 'Role/FETCH_PUT_ROLE_REQUEST';
-const FETCH_PUT_ROLE_SUCCESS = 'Role/FETCH_PUT_ROLE_SUCCESS';
-const FETCH_PUT_ROLE_FAILURE = 'Role/FETCH_PUT_ROLE_FAILURE';
-const SELECT_ROLES = 'Role/SELECT_ROLES';
-const SET_EDITABLE_ROLE = 'Role/SET_EDITABLE_ROLE';
-const INPUT_EDITABLE_ROLE = 'Role/INPUT_EDITABLE_ROLE';
+const FETCH_GET_ROLES_REQUEST = 'role/FETCH_GET_ROLES_REQUEST';
+const FETCH_GET_ROLES_SUCCESS = 'role/FETCH_GET_ROLES_SUCCESS';
+const FETCH_GET_ROLES_FAILURE = 'role/FETCH_GET_ROLES_FAILURE';
+const FETCH_GET_ROLES_BY_ID_REQUEST = 'role/FETCH_GET_ROLES_BY_ID_REQUEST';
+const FETCH_GET_ROLES_BY_ID_SUCCESS = 'role/FETCH_GET_ROLES_BY_ID_SUCCESS';
+const FETCH_GET_ROLES_BY_ID_FAILURE = 'role/FETCH_GET_ROLES_BY_ID_FAILURE';
+const FETCH_POST_ROLE_REQUEST = 'role/FETCH_POST_ROLE_REQUEST';
+const FETCH_POST_ROLE_SUCCESS = 'role/FETCH_POST_ROLE_SUCCESS';
+const FETCH_POST_ROLE_FAILURE = 'role/FETCH_POST_ROLE_FAILURE';
+const FETCH_PUT_ROLE_REQUEST = 'role/FETCH_PUT_ROLE_REQUEST';
+const FETCH_PUT_ROLE_SUCCESS = 'role/FETCH_PUT_ROLE_SUCCESS';
+const FETCH_PUT_ROLE_FAILURE = 'role/FETCH_PUT_ROLE_FAILURE';
+const SELECT_ROLES = 'role/SELECT_ROLES';
+const SET_EDITABLE_ROLE = 'role/SET_EDITABLE_ROLE';
+const INPUT_EDITABLE_ROLE = 'role/INPUT_EDITABLE_ROLE';
 
 const fetchGetRolesRequest = createAction(FETCH_GET_ROLES_REQUEST)();
-const fetchGetRolesSuccess = createAction(FETCH_GET_ROLES_SUCCESS)<IRole[]>();
+const fetchGetRolesSuccess = createAction(FETCH_GET_ROLES_SUCCESS)<Role[]>();
 const fetchGetRolesFailure = createAction(FETCH_GET_ROLES_FAILURE)();
 
 const fetchGetRolesByIdRequest = createAction(FETCH_GET_ROLES_BY_ID_REQUEST)<
-  IRole['id']
+  Role['id']
 >();
 const fetchGetRolesByIdSuccess = createAction(
   FETCH_GET_ROLES_BY_ID_SUCCESS
-)<IRole>();
+)<Role>();
 const fetchGetRolesByIdFailure = createAction(FETCH_GET_ROLES_BY_ID_FAILURE)();
 
-const fetchPutRoleRequest = createAction(FETCH_PUT_ROLE_REQUEST)<IRole>();
-const fetchPutRoleSuccess = createAction(FETCH_PUT_ROLE_SUCCESS)<IRole>();
+const fetchPostRoleRequest = createAction(FETCH_POST_ROLE_REQUEST)<
+  Omit<Role, 'id'>
+>();
+const fetchPostRoleSuccess = createAction(FETCH_POST_ROLE_SUCCESS)<Role>();
+const fetchPostRoleFailure = createAction(FETCH_POST_ROLE_FAILURE)();
+
+const fetchPutRoleRequest = createAction(FETCH_PUT_ROLE_REQUEST)<Role>();
+const fetchPutRoleSuccess = createAction(FETCH_PUT_ROLE_SUCCESS)<Role>();
 const fetchPutRoleFailure = createAction(FETCH_PUT_ROLE_FAILURE)();
 
-const selectRoles = createAction(SELECT_ROLES)<IRole[]>();
-const setEditableRole = createAction(SET_EDITABLE_ROLE)<IRole>();
+const selectRoles = createAction(SELECT_ROLES)<Role[]>();
+const setEditableRole = createAction(SET_EDITABLE_ROLE)<Partial<Role>>();
 const inputEditableRole = createAction(INPUT_EDITABLE_ROLE)<EditableType>();
 
 export const actions = {
@@ -45,6 +55,9 @@ export const actions = {
   fetchGetRolesByIdRequest,
   fetchGetRolesByIdSuccess,
   fetchGetRolesByIdFailure,
+  fetchPostRoleRequest,
+  fetchPostRoleSuccess,
+  fetchPostRoleFailure,
   fetchPutRoleRequest,
   fetchPutRoleSuccess,
   fetchPutRoleFailure,
@@ -58,7 +71,7 @@ export type ActionsType = ActionType<typeof actions>;
 // redux-saga
 function* fetchGetRoles() {
   const { data, status } = yield axios
-    .get<IRole[]>(`/roles`)
+    .get<Role[]>(`/roles`)
     .catch(AxiosErrorHandler);
 
   if (status === 200) {
@@ -73,7 +86,7 @@ function* fetchGetRolesById(
 ) {
   const { payload } = action;
   const { data, status } = yield axios
-    .get<IRole[]>(`/roles/${payload}`)
+    .get<Role[]>(`/roles/${payload}`)
     .catch(AxiosErrorHandler);
 
   if (status === 200) {
@@ -84,19 +97,44 @@ function* fetchGetRolesById(
   }
 }
 
+function* fetchPostRole(action: ActionType<typeof fetchPostRoleRequest>) {
+  const { payload } = action;
+  const { data, status } = yield axios
+    .post<Role>(`/roles/`, payload)
+    .catch(AxiosErrorHandler);
+
+  if (status === 200) {
+    yield put(fetchPostRoleSuccess(data));
+    yield put(fetchGetRolesByIdSuccess(data));
+    yield put(
+      SystemActions.showAlert({
+        message: '등록하였습니다.',
+      })
+    );
+  } else {
+    yield put(fetchPostRoleFailure());
+  }
+}
+
 function* fetchPutRole(action: ActionType<typeof fetchPutRoleRequest>) {
   const { payload } = action;
-  const { id, description, name } = payload;
+  const { id, description, name, authorities } = payload;
   const { data, status } = yield axios
-    .post<IRole>(`/roles/${id}`, {
+    .put<Role>(`/roles/${id}`, {
       description,
       name,
+      authorities,
     })
     .catch(AxiosErrorHandler);
 
   if (status === 200) {
     yield put(fetchPutRoleSuccess(data));
     yield put(fetchGetRolesByIdSuccess(data));
+    yield put(
+      SystemActions.showAlert({
+        message: '수정하였습니다.',
+      })
+    );
   } else {
     yield put(fetchPutRoleFailure());
   }
@@ -105,5 +143,6 @@ function* fetchPutRole(action: ActionType<typeof fetchPutRoleRequest>) {
 export default function* roleSaga() {
   yield takeLatest(FETCH_GET_ROLES_REQUEST, fetchGetRoles);
   yield takeLatest(FETCH_GET_ROLES_BY_ID_REQUEST, fetchGetRolesById);
+  yield takeLatest(fetchPostRoleRequest, fetchPostRole);
   yield takeLatest(fetchPutRoleRequest, fetchPutRole);
 }

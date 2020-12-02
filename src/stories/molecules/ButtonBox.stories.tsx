@@ -11,6 +11,12 @@ export default {
     cancleCallback: { action: 'cancleCallback' },
     deleteClickCallback: { action: 'deleteClickCallback' },
     modifyClickCallback: { action: 'modifyClickCallback' },
+    showcase: {
+      control: {
+        type: 'select',
+        options: ['list', 'write', 'detail'],
+      },
+    },
   },
 } as Meta;
 
@@ -19,4 +25,5 @@ const Template: Story<ButtonBoxProps> = (args) => <ButtonBox {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   confirmMode: false,
+  showcase: 'list',
 };

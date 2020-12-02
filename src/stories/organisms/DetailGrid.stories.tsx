@@ -21,15 +21,19 @@ Default.args = {
   detailColumns: [
     {
       field: 'id',
-      text: '아이디',
+      label: '아이디',
     },
     {
       field: 'name',
-      text: '이름',
+      label: '이름',
     },
     {
       field: 'description',
-      text: '설명',
+      label: '설명',
+    },
+    {
+      field: 'authorities',
+      label: '권한',
     },
   ],
   data: {

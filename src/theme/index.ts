@@ -1,8 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { DefaultTheme } from 'styled-components';
-import { createMuiTheme, Theme, ThemeProvider } from '@material-ui/core/styles';
-
-export { ThemeProvider as MaterialThemeProvider };
 
 export const gray = {
   light: '#efefef',
@@ -94,18 +91,6 @@ export const defaultTheme: DefaultTheme = {
   fontWeight,
   breakPoint,
 };
-
-export const materialDefaultTheme: Theme = createMuiTheme({
-  palette: {
-    primary,
-    secondary,
-    error,
-    warning,
-    info,
-    success,
-    background,
-  },
-});
 
 export const darkTheme: DefaultTheme = {
   ...defaultTheme,

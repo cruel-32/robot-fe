@@ -1,30 +1,8 @@
 /* eslint-disable react/require-default-props */
 import React, { ReactNode } from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
 
 import GridBox from '@/components/atoms/GridBox';
-
-const useStyles = makeStyles(
-  createStyles({
-    containerGrid: {
-      height: '100%',
-      flexWrap: 'nowrap',
-    },
-    topGrid: {
-      flex: 'none',
-    },
-    centerGrid: {
-      marginTop: '10px',
-      marginBottom: '10px',
-      flex: '1',
-      overflow: 'auto',
-    },
-    bottomGrid: {
-      flex: 'none',
-      marginTop: 'auto',
-    },
-  })
-);
 
 export type ContentsBoxProps = {
   topChildren?: ReactNode;
@@ -32,27 +10,39 @@ export type ContentsBoxProps = {
   bottomChildren?: ReactNode;
 };
 
+const StyledGridBox = styled(GridBox)`
+  height: 100%;
+  flex-wrap: nowrap;
+  .top-grid {
+    flex: none;
+  }
+  .center-grid {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    flex: 1;
+    overflow: auto;
+  }
+  .bottom-grid {
+    flex: none;
+    margin-top: auto;
+  }
+`;
+
 const ContentsBox: React.FC<ContentsBoxProps> = (props) => {
-  const classes = useStyles();
   const { topChildren, children, bottomChildren } = props;
 
   return (
-    <GridBox
-      container
-      direction="column"
-      justify="space-between"
-      className={classes.containerGrid}
-    >
-      <GridBox item className={classes.topGrid}>
+    <StyledGridBox container direction="column" justify="space-between">
+      <GridBox item className="top-grid">
         {topChildren}
       </GridBox>
-      <GridBox item className={classes.centerGrid}>
+      <GridBox item className="center-grid">
         {children}
       </GridBox>
-      <GridBox item className={classes.bottomGrid}>
+      <GridBox item className="bottom-grid">
         {bottomChildren}
       </GridBox>
-    </GridBox>
+    </StyledGridBox>
   );
 };
 

@@ -12,11 +12,7 @@ import axios from 'axios';
 
 import { rootReducer, rootSaga } from '@/redux';
 import CssBaseline from '@/components/atoms/CssBaseline';
-import {
-  defaultTheme,
-  materialDefaultTheme,
-  MaterialThemeProvider,
-} from '@/theme';
+import { defaultTheme } from '@/theme';
 
 // axios.defaults.baseURL = 'http://localhost:8080';
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
@@ -29,18 +25,18 @@ sagaMiddleware.run(rootSaga);
 
 const withThemeProvider = (Story, context) => {
   return (
-    <Provider store={store}>
-      <MuiPickersUtilsProvider utils={MomentUtils}>
-        <ThemeProvider theme={defaultTheme}>
-          <MaterialThemeProvider theme={materialDefaultTheme}>
+    <React.StrictMode>
+      <Provider store={store}>
+        <MuiPickersUtilsProvider utils={MomentUtils}>
+          <ThemeProvider theme={defaultTheme}>
             <BrowserRouter>
               <CssBaseline />
               <Story {...context} />
             </BrowserRouter>
-          </MaterialThemeProvider>
-        </ThemeProvider>
-      </MuiPickersUtilsProvider>
-    </Provider>
+          </ThemeProvider>
+        </MuiPickersUtilsProvider>
+      </Provider>
+    </React.StrictMode>
   );
 };
 export const decorators = [withThemeProvider];

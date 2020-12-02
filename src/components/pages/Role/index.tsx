@@ -7,8 +7,9 @@ import ListContentsBox, {
   CellParams,
 } from '@/components/organisms/ListContentsBox';
 
-import { IRole } from '@/redux/Role/reducer';
+import { Role } from '@/redux/Role/reducer';
 import useRole from '@/hooks/useRole';
+import useSystem from '@/hooks/useSystem';
 
 const RoleColumns = [
   { field: 'id', headerName: 'ID', width: 120 },
@@ -17,19 +18,25 @@ const RoleColumns = [
 ];
 
 const RolePage = () => {
-  const histroy = useHistory();
+  const history = useHistory();
   const { role, fetchGetRoles, selectRoles } = useRole();
+  const { showAlert, showConfirm } = useSystem();
 
   useEffect(() => {
     fetchGetRoles();
-  }, []);
+  }, [fetchGetRoles]);
 
   const onSelectionChange = (data: SelectionChangeParams) => {
-    const selectedRoles = role.list.filter((item: IRole) =>
+    const selectedRoles = role.list.filter((item: Role) =>
       data.rowIds.includes(item.id.toString())
     );
 
     selectRoles(selectedRoles);
+  };
+
+  const addClickCallback = () => {
+    console.log('go add page');
+    history.push(`/role/write`);
   };
 
   const confirmCallback = () => {
@@ -40,34 +47,48 @@ const RolePage = () => {
     const { data } = cellData;
 
     if (data) {
-      histroy.push(`/role/${data.id}`);
+      history.push(`/role/detail/${data.id}`);
     }
   };
 
-  const modifyClickCallback = () => {
-    console.log(
-      '🚀 ~ file: index.tsx ~ line 40 ~ modifyClickCallback ~ role',
-      role
-    );
-    if (Array.isArray(role.selectedList) && role.selectedList?.length === 1) {
-      const [selectedRole] = role.selectedList;
-      histroy.push(`/role/${selectedRole.id}`);
-    } else {
-      alert('하나의 row를 선택하세요');
-    }
+  const alertTest = () => {
+    showAlert({
+      message: '메세지 테스트',
+      callback(data: any) {
+        console.log('role data : ', data);
+        console.log('role : ', role.list?.[0].name);
+      },
+    });
+  };
+  const confirmTest = () => {
+    showConfirm({
+      message: '메세지 테스트',
+      callback(data: any) {
+        console.log('role data : ', data);
+        console.log('role : ', role.list?.[0].name);
+      },
+    });
   };
 
   return (
-    <ListContentsBox
-      title="역할관리 리스트"
-      icon="table_rows"
-      columns={RoleColumns}
-      rows={role.list}
-      modifyClickCallback={modifyClickCallback}
-      onSelectionChange={onSelectionChange}
-      confirmCallback={confirmCallback}
-      onCellClick={onCellClick}
-    />
+    <>
+      <button type="button" onClick={alertTest}>
+        alert
+      </button>
+      <button type="button" onClick={confirmTest}>
+        confirm
+      </button>
+      <ListContentsBox
+        title="역할관리 리스트"
+        icon="table_rows"
+        columns={RoleColumns}
+        rows={role.list}
+        addClickCallback={addClickCallback}
+        onSelectionChange={onSelectionChange}
+        confirmCallback={confirmCallback}
+        onCellClick={onCellClick}
+      />
+    </>
   );
 };
 

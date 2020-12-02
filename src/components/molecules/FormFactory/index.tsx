@@ -1,16 +1,23 @@
 /* eslint-disable no-shadow */
-import React from 'react';
+import React, { useMemo } from 'react';
 import Input, { InputProps } from '@/components/atoms/Input';
 import TextArea from '@/components/atoms/TextArea';
 import Select from '@/components/atoms/Select';
 
 export type FormType = {
-  form: 'input' | 'textarea' | 'select' | 'checkbox' | 'radio';
-  label: string;
+  form?:
+    | 'input'
+    | 'textarea'
+    | 'select'
+    | 'select.multiple'
+    | 'checkbox'
+    | 'radio';
+  label?: string;
   type?: InputProps['type'];
   disabled?: boolean;
   items?: IFormDataType[];
   options?: any;
+  selectedFormat?: (item: IFormDataType) => boolean;
 };
 
 export type FormFactoryProps = {
@@ -29,6 +36,7 @@ const FormFactory: React.FC<FormFactoryProps> = (props) => {
     options,
     items,
     inputHandler,
+    selectedFormat,
   } = props;
 
   const onChange = (
@@ -41,6 +49,37 @@ const FormFactory: React.FC<FormFactoryProps> = (props) => {
       value,
     });
   };
+
+  const onSelect = (
+    e: React.ChangeEvent<{
+      name?: string | undefined;
+      value: unknown;
+    }>
+  ) => {
+    const { name = 'name', value } = e.target;
+
+    inputHandler({
+      name,
+      value,
+    });
+  };
+
+  const selectedValue = useMemo(() => {
+    if (Array.isArray(items)) {
+      if (typeof selectedFormat === 'function') {
+        return items.filter(selectedFormat).map((item) => item.value);
+      }
+      return items
+        .filter((item: IFormDataType) => {
+          if (Array.isArray(value)) {
+            return value.includes(item.value);
+          }
+          return item.value === value;
+        })
+        .map((item) => item.value);
+    }
+    return undefined;
+  }, [value, items, selectedFormat]);
 
   return (
     <>
@@ -65,7 +104,27 @@ const FormFactory: React.FC<FormFactoryProps> = (props) => {
           {...options}
         />
       )}
-      {form === 'select' && items && <Select items={items} />}
+      {form === 'select' && items && (
+        <Select
+          onChange={onSelect}
+          items={items}
+          name={name}
+          fullWidth
+          value={selectedValue?.[0] || value || ''}
+          {...options}
+        />
+      )}
+      {form === 'select.multiple' && items && (
+        <Select
+          onChange={onSelect}
+          items={items}
+          name={name}
+          fullWidth
+          value={selectedValue || value || ''}
+          multiple
+          {...options}
+        />
+      )}
     </>
   );
 };

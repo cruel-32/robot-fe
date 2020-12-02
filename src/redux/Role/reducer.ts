@@ -5,17 +5,18 @@ import { createReducer } from 'typesafe-actions';
 
 import { ActionsType } from './actions';
 
-export type IRole = {
+export type Role = {
   description?: string;
   id: number;
   name?: string;
+  authorities?: string[];
 };
 
 export type State = {
-  selected?: IRole;
-  editableRole: IRole;
-  list: IRole[];
-  selectedList: IRole[];
+  selected?: Role;
+  editableRole: Partial<Role>;
+  list: Role[];
+  selectedList: Role[];
 };
 
 export const initialState: State = {
@@ -24,52 +25,53 @@ export const initialState: State = {
     description: '',
     id: 0,
     name: '',
+    authorities: [],
   },
   list: [],
   selectedList: [],
 };
 
 // export type EditableType = {
-//   name: keyof IRole;
-//   value: IRole[keyof IRole];
+//   name: keyof Role;
+//   value: Role[keyof Role];
 // };
 export type EditableType = {
-  name: keyof Omit<IRole, 'id'>;
-  value: IRole[keyof Omit<IRole, 'id'>];
+  name: keyof Omit<Role, 'id'>;
+  value: Role[keyof Omit<Role, 'id'>];
 };
 
 export default createReducer<State, ActionsType>(initialState, {
-  'Role/FETCH_GET_ROLES_SUCCESS': function (state, action) {
+  'role/FETCH_GET_ROLES_SUCCESS': function (state, action) {
     return produce(state, (draft: Draft<State>) => {
       draft.list = action.payload;
     });
   },
-  'Role/FETCH_GET_ROLES_FAILURE': function (state) {
+  'role/FETCH_GET_ROLES_FAILURE': function (state) {
     return produce(state, (draft: Draft<State>) => {
       draft.list = [];
     });
   },
-  'Role/FETCH_GET_ROLES_BY_ID_SUCCESS': function (state, action) {
+  'role/FETCH_GET_ROLES_BY_ID_SUCCESS': function (state, action) {
     return produce(state, (draft: Draft<State>) => {
       draft.selected = action.payload;
     });
   },
-  'Role/FETCH_GET_ROLES_BY_ID_FAILURE': function (state) {
+  'role/FETCH_GET_ROLES_BY_ID_FAILURE': function (state) {
     return produce(state, (draft: Draft<State>) => {
       draft.selected = undefined;
     });
   },
-  'Role/SELECT_ROLES': function (state, action) {
+  'role/SELECT_ROLES': function (state, action) {
     return produce(state, (draft: Draft<State>) => {
       draft.selectedList = action.payload;
     });
   },
-  'Role/SET_EDITABLE_ROLE': function (state, action) {
+  'role/SET_EDITABLE_ROLE': function (state, action) {
     return produce(state, (draft: Draft<State>) => {
       draft.editableRole = action.payload;
     });
   },
-  'Role/INPUT_EDITABLE_ROLE': function (state, action) {
+  'role/INPUT_EDITABLE_ROLE': function (state, action) {
     return produce(state, (draft: Draft<State>) => {
       const { name, value } = action.payload;
       draft.editableRole[name] = value as never;

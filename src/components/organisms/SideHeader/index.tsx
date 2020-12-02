@@ -25,7 +25,7 @@ const SideHeader = () => {
   const { account, fetchGetLoggedInfo } = useAccount();
   useEffect(() => {
     fetchGetLoggedInfo();
-  }, []);
+  }, [fetchGetLoggedInfo]);
 
   return (
     <div>

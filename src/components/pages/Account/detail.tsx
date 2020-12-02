@@ -8,15 +8,19 @@ import DetailGrid, { DetailColumn } from '@/components/organisms/DetailGrid';
 const detailColumns: DetailColumn[] = [
   {
     field: 'id',
-    text: '아이디',
+    label: '아이디',
   },
   {
     field: 'name',
-    text: '이름',
+    label: '이름',
   },
   {
     field: 'description',
-    text: '설명',
+    label: '설명',
+  },
+  {
+    field: 'authorities',
+    label: '권한',
   },
 ];
 
@@ -28,9 +32,9 @@ const AccountDetailPage = () => {
     if (id) {
       fetchGetRolesById(parseInt(id, 10));
     }
-  }, []);
+  }, [id, fetchGetRolesById]);
 
-  const modifyCallback = () => {
+  const confirmCallback = () => {
     console.log('modify');
   };
 
@@ -38,7 +42,7 @@ const AccountDetailPage = () => {
     <DetailContentsBox
       title="역할관리 상세"
       icon="table_rows"
-      modifyCallback={modifyCallback}
+      confirmCallback={confirmCallback}
     >
       <DetailGrid detailColumns={detailColumns} data={role.selected} />
     </DetailContentsBox>

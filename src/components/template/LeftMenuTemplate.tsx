@@ -1,29 +1,25 @@
 import React, { ReactNode, memo } from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import styled from 'styled-components';
 
 import CssBaseline from '@/components/atoms/CssBaseline';
 import GridBox from '@/components/atoms/GridBox';
 import SideHeader from '@/components/organisms/SideHeader';
 
-const useStyles = makeStyles((theme: Theme) => {
-  const { palette } = theme;
+import { background } from '@/theme';
 
-  return createStyles({
-    container: {
-      flexWrap: 'nowrap',
-    },
-    leftSide: {
-      flex: '0 0 200px',
-      padding: '12px',
-      borderRight: `1px solid #efefef`,
-      backgroundColor: palette.background.default,
-    },
-    contents: {
-      padding: '12px',
-      flex: '1 1 auto',
-    },
-  });
-});
+const StyledContainer = styled(GridBox)`
+  flex-wrap: nowrap;
+  .left-side {
+    flex: 0 0 200px;
+    padding: 12px;
+    border-right: 1px solid #efefef;
+    background-color: ${background.default};
+  }
+  .contents {
+    padding: 12px;
+    flex: 1 1 auto;
+  }
+`;
 
 export type LeftMenuTemplateProps = {
   children: ReactNode;
@@ -32,20 +28,19 @@ export type LeftMenuTemplateProps = {
 const MemoSideHeader = memo(SideHeader);
 
 const LeftMenuTemplate = (props: LeftMenuTemplateProps) => {
-  const classes = useStyles();
   const { children } = props;
 
   return (
     <>
       <CssBaseline />
-      <GridBox container className={classes.container}>
-        <GridBox item className={classes.leftSide}>
+      <StyledContainer container>
+        <GridBox item className="left-side">
           <MemoSideHeader />
         </GridBox>
-        <GridBox item className={classes.contents}>
+        <GridBox item className="contents">
           {children}
         </GridBox>
-      </GridBox>
+      </StyledContainer>
     </>
   );
 };

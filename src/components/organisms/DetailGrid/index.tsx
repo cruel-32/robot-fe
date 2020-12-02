@@ -1,35 +1,31 @@
 /* eslint-disable react/require-default-props */
 import React from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
 import GridBox from '@/components/atoms/GridBox';
 import Text from '@/components/atoms/Text';
 
 import { gray, background } from '@/theme';
 
-const useStyles = makeStyles(
-  createStyles({
-    containerGrid: {
-      flexWrap: 'nowrap',
-      borderTop: `1px solid ${gray.light}`,
-      borderLeft: `1px solid ${gray.light}`,
-      borderRight: `1px solid ${gray.light}`,
-    },
-    rowGrid: {
-      borderBottom: `1px solid ${gray.light}`,
-    },
-    leftGrid: {
-      flex: 'none',
-      background: background.default,
-      padding: '10px',
-      minWidth: '100px',
-    },
-    rightGrid: {
-      flex: 1,
-      marginLeft: 'auto',
-      padding: '10px',
-    },
-  })
-);
+const StyledContainer = styled(GridBox)`
+  flex-wrap: nowrap;
+  border-top: 1px solid ${gray.light};
+  border-left: 1px solid ${gray.light};
+  border-right: 1px solid ${gray.light};
+  .row-grid {
+    border-bottom: 1px solid ${gray.light};
+  }
+  .left-grid {
+    flex: none;
+    background: ${background.default};
+    padding: 10px;
+    min-width: 100px;
+  }
+  .right-grid {
+    flex: 1;
+    margin-left: auto;
+    padding: 10px;
+  }
+`;
 
 export type DetailGridProps = {
   detailColumns: DetailColumn[];
@@ -38,37 +34,41 @@ export type DetailGridProps = {
 
 export type DetailColumn = {
   field: string;
-  text: string;
+  label: string;
+  type?: 'string' | 'array';
 };
 
 const DetailGrid: React.FC<DetailGridProps> = (props) => {
-  const classes = useStyles();
   const { detailColumns, data } = props;
 
   return (
-    <GridBox container direction="column" className={classes.containerGrid}>
+    <StyledContainer container direction="column">
       {detailColumns.map((detail) => {
-        const { field, text } = detail;
+        const { field, label, type } = detail;
 
         return (
           <GridBox item key={detail.field}>
             <GridBox
               container
-              className={classes.rowGrid}
+              className="row-grid"
               direction="row"
               justify="space-between"
             >
-              <GridBox item className={classes.leftGrid}>
-                <Text>{text}</Text>
+              <GridBox item className="left-grid">
+                <Text>{label}</Text>
               </GridBox>
-              <GridBox item className={classes.rightGrid}>
-                <Text>{data?.[field]}</Text>
+              <GridBox item className="right-grid">
+                <Text>
+                  {type !== 'string' && Array.isArray(data?.[field])
+                    ? data?.[field].join(' ')
+                    : data?.[field]}
+                </Text>
               </GridBox>
             </GridBox>
           </GridBox>
         );
       })}
-    </GridBox>
+    </StyledContainer>
   );
 };
 

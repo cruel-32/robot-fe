@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
 
 import GridBox from '@/components/atoms/GridBox';
 import Title, { TitleProps } from '@/components/atoms/Title';
@@ -10,20 +10,16 @@ export type TitleBarProps = {
 } & TitleProps &
   Omit<IconProps, 'color'>;
 
-const useStyles = makeStyles(
-  createStyles({
-    leftGrid: {
-      flex: 'none',
-    },
-    centerGrid: {
-      flex: 'none',
-    },
-    rightGrid: {
-      flex: 'none',
-      marginLeft: 'auto',
-    },
-  })
-);
+const StyledRootGrid = styled(GridBox)`
+  flex: none;
+  .center-grid {
+    flex: none;
+  }
+  .right-grid {
+    flex: none;
+    margin-left: auto;
+  }
+`;
 
 const TitleBar = (props: TitleBarProps) => {
   const {
@@ -37,18 +33,8 @@ const TitleBar = (props: TitleBarProps) => {
     children,
   } = props;
 
-  // display="flex"
-  // alignContent="center"
-  // backgroundColor={backgroundColor}
-  // border={border}
-  // borderRadius={borderRadius}
-  // padding={padding}
-  // justifyContent="space-between"
-
-  const classes = useStyles();
-
   return (
-    <GridBox container justify="space-between" className={classes.leftGrid}>
+    <StyledRootGrid container justify="space-between">
       {icon && (
         <GridBox item>
           <Icon
@@ -59,7 +45,7 @@ const TitleBar = (props: TitleBarProps) => {
           />
         </GridBox>
       )}
-      <GridBox item className={classes.centerGrid}>
+      <GridBox item className="center-grid">
         <Title
           headline={headline}
           color={color}
@@ -69,10 +55,10 @@ const TitleBar = (props: TitleBarProps) => {
           {title}
         </Title>
       </GridBox>
-      <GridBox item className={classes.rightGrid}>
+      <GridBox item className="right-grid">
         {children}
       </GridBox>
-    </GridBox>
+    </StyledRootGrid>
   );
 };
 export default TitleBar;

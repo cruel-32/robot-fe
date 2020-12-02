@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
 
 import ContentsBox from '@/components/molecules/ContentsBox';
 import TitleBar, { TitleBarProps } from '@/components/molecules/TitleBar';
@@ -15,23 +15,19 @@ import ButtonBox from '@/components/molecules/ButtonBox';
 export type ListContentsBoxProps = Pick<TitleBarProps, 'title' | 'icon'> &
   Pick<DataGridProps, 'columns' | 'rows'> & {
     onSelectionChange?: (data: SelectionChangeParams) => void;
+    addClickCallback?: (
+      e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => void;
     confirmCallback?: (
       e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => void;
-    modifyClickCallback?: (
-      e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    ) => void;
-    onCellClick?: (e: CellParams) => void;
+    onCellClick?: (param: CellParams) => void;
   };
 export type { SelectionChangeParams, ColDef, RowsProp, CellParams };
 
-const useStyles = makeStyles(
-  createStyles({
-    contentsWrap: {
-      height: '400px',
-    },
-  })
-);
+const StyledContentsWrap = styled.div`
+  height: 400px;
+`;
 
 const ListContentsBox: React.FC<ListContentsBoxProps> = (props) => {
   const {
@@ -39,16 +35,21 @@ const ListContentsBox: React.FC<ListContentsBoxProps> = (props) => {
     icon,
     columns,
     rows,
+    addClickCallback,
     onSelectionChange,
     confirmCallback,
-    modifyClickCallback,
     onCellClick,
   } = props;
   const [confirmMode, setConfirmMode] = useState(false);
-  const classes = useStyles();
 
   const toggleConfirmMode = () => {
     setConfirmMode(!confirmMode);
+  };
+
+  const onCellClickNoSelection = (param: CellParams) => {
+    if (!confirmMode && typeof onCellClick === 'function') {
+      onCellClick(param);
+    }
   };
 
   return (
@@ -58,23 +59,24 @@ const ListContentsBox: React.FC<ListContentsBoxProps> = (props) => {
           <TitleBar title={title} icon={icon} />
           <ButtonBox
             confirmMode={confirmMode}
+            addClickCallback={addClickCallback}
             confirmCallback={confirmCallback}
             cancleCallback={toggleConfirmMode}
             deleteClickCallback={toggleConfirmMode}
-            modifyClickCallback={modifyClickCallback}
+            showcase="list"
           />
         </>
       }
     >
-      <div className={classes.contentsWrap}>
+      <StyledContentsWrap>
         <DataGrid
           checkboxSelection={confirmMode}
           columns={columns}
           rows={rows}
           onSelectionChange={onSelectionChange}
-          onCellClick={onCellClick}
+          onCellClick={onCellClickNoSelection}
         />
-      </div>
+      </StyledContentsWrap>
     </ContentsBox>
   );
 };

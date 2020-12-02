@@ -1,52 +1,67 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import ContentsBox from '@/components/molecules/ContentsBox';
 import TitleBar, { TitleBarProps } from '@/components/molecules/TitleBar';
 import ButtonBox from '@/components/molecules/ButtonBox';
+import useSystem from '@/hooks/useSystem';
+
+const MemoContentsBox = memo(ContentsBox);
+const MemoTitleBar = memo(TitleBar);
+const MemoButtonBox = memo(ButtonBox);
 
 export type DetailContentsBoxProps = Pick<TitleBarProps, 'title' | 'icon'> & {
-  modifyCallback?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  cancleCallback?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  confirmCallback?: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+  backClickCallback?: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+  modifyClickCallback?: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
   contentsWritableMode?: boolean;
-  modeChangeHandler?: (mode: boolean) => void;
 };
 
 const DetailContentsBox: React.FC<DetailContentsBoxProps> = (props) => {
+  const { showConfirm } = useSystem();
   const {
     title,
     icon,
     contentsWritableMode,
-    modeChangeHandler,
-    modifyCallback,
+    backClickCallback,
+    cancleCallback,
+    confirmCallback,
+    modifyClickCallback,
     children,
   } = props;
   // const history = useHistory();
 
-  const toggleConfirmMode = () => {
-    if (modeChangeHandler) {
-      modeChangeHandler(!contentsWritableMode);
-    }
-  };
   const deleteHandler = () => {
-    window.confirm('정말 삭제하시겠습니까?');
+    showConfirm({
+      message: '정말 삭제하시겠습니까?',
+    });
   };
 
   return (
-    <ContentsBox
+    <MemoContentsBox
       topChildren={
         <>
-          <TitleBar title={title} icon={icon} />
-          <ButtonBox
+          <MemoTitleBar title={title} icon={icon} />
+          <MemoButtonBox
             confirmMode={contentsWritableMode}
-            confirmCallback={modifyCallback}
-            cancleCallback={toggleConfirmMode}
+            backClickCallback={backClickCallback}
+            confirmCallback={confirmCallback}
+            cancleCallback={cancleCallback}
             deleteClickCallback={deleteHandler}
-            modifyClickCallback={toggleConfirmMode}
+            modifyClickCallback={modifyClickCallback}
+            showcase="detail"
           />
         </>
       }
     >
       {children}
-    </ContentsBox>
+    </MemoContentsBox>
   );
 };
 

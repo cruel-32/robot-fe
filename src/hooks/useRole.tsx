@@ -2,64 +2,69 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useCallback } from 'react';
 
 import { RootState } from '@/redux';
-import { IRole } from '@/redux/Role/reducer';
-import Role from '@/redux/Role';
+import { Role } from '@/redux/Role/reducer';
+import RoleStore from '@/redux/Role';
 
-export default function useCounter() {
+export default function useRole() {
   const role = useSelector((state: RootState) => state.role);
   const dispatch = useDispatch();
 
   const fetchGetRoles = useCallback(
-    () => dispatch(Role.actions.fetchGetRolesRequest()),
+    () => dispatch(RoleStore.actions.fetchGetRolesRequest()),
     [dispatch]
   );
 
   const fetchGetRolesById = useCallback(
-    (id: IRole['id']) => dispatch(Role.actions.fetchGetRolesByIdRequest(id)),
+    (id: Role['id']) =>
+      dispatch(RoleStore.actions.fetchGetRolesByIdRequest(id)),
+    [dispatch]
+  );
+
+  const fetchPostRole = useCallback(
+    (param: Role) => dispatch(RoleStore.actions.fetchPostRoleRequest(param)),
     [dispatch]
   );
 
   const fetchPutRole = useCallback(
-    (param: IRole) => dispatch(Role.actions.fetchPutRoleRequest(param)),
+    (param: Role) => dispatch(RoleStore.actions.fetchPutRoleRequest(param)),
     [dispatch]
   );
 
   const selectRoles = useCallback(
-    (list: IRole[]) => {
-      dispatch(Role.actions.selectRoles(list));
+    (list: Role[]) => {
+      dispatch(RoleStore.actions.selectRoles(list));
     },
     [dispatch]
   );
 
   const setEditableRole = useCallback(
-    (param: IRole) => {
-      dispatch(Role.actions.setEditableRole(param));
+    (param: Role) => {
+      dispatch(RoleStore.actions.setEditableRole(param));
     },
     [dispatch]
   );
 
   const inputEditableRole = useCallback(
     ({ name, value }) => {
-      dispatch(Role.actions.inputEditableRole({ name, value }));
+      dispatch(RoleStore.actions.inputEditableRole({ name, value }));
     },
     [dispatch]
   );
 
   const resetEditableRole = useCallback(() => {
     dispatch(
-      Role.actions.setEditableRole(
-        role.selected || {
-          id: 0,
-          name: '',
-          description: '',
-        }
-      )
+      RoleStore.actions.setEditableRole({
+        id: undefined,
+        name: '',
+        description: '',
+      })
     );
   }, [dispatch]);
   return {
     role,
     fetchGetRoles,
     fetchGetRolesById,
+    fetchPostRole,
     fetchPutRole,
     selectRoles,
     setEditableRole,

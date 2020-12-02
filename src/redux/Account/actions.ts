@@ -9,22 +9,22 @@ type LoginParam = {
   username: string;
   password: string;
 };
-const FETCH_LOGIN_REQUEST = 'Account/FETCH_LOGIN_REQUEST';
-const FETCH_LOGIN_FAILURE = 'Account/FETCH_LOGIN_FAILURE';
+const FETCH_LOGIN_REQUEST = 'account/FETCH_LOGIN_REQUEST';
+const FETCH_LOGIN_FAILURE = 'account/FETCH_LOGIN_FAILURE';
 const fetchLoginRequest = createAction(FETCH_LOGIN_REQUEST)<LoginParam>();
 const fetchLoginFailure = createAction(FETCH_LOGIN_FAILURE)();
 
-const FETCH_GET_LOGGED_INFO_REQUEST = 'Account/FETCH_GET_LOGGED_INFO_REQUEST';
-const FETCH_GET_LOGGED_INFO_SUCCESS = 'Account/FETCH_GET_LOGGED_INFO_SUCCESS';
-const FETCH_GET_LOGGED_INFO_FAILURE = 'Account/FETCH_GET_LOGGED_INFO_FAILURE';
+const FETCH_GET_LOGGED_INFO_REQUEST = 'account/FETCH_GET_LOGGED_INFO_REQUEST';
+const FETCH_GET_LOGGED_INFO_SUCCESS = 'account/FETCH_GET_LOGGED_INFO_SUCCESS';
+const FETCH_GET_LOGGED_INFO_FAILURE = 'account/FETCH_GET_LOGGED_INFO_FAILURE';
 const fetchGetLoggedInfoRequest = createAction(FETCH_GET_LOGGED_INFO_REQUEST)();
 const fetchGetLoggedInfoSuccess = createAction(
   FETCH_GET_LOGGED_INFO_SUCCESS
 )<IAccount>();
 const fetchGetLoggedInfoFailure = createAction(FETCH_GET_LOGGED_INFO_FAILURE)();
 
-const FETCH_LOGOUT_REQUEST = 'Account/FETCH_LOGOUT_REQUEST';
-const FETCH_LOGOUT_SUCCESS = 'Account/FETCH_LOGOUT_SUCCESS';
+const FETCH_LOGOUT_REQUEST = 'account/FETCH_LOGOUT_REQUEST';
+const FETCH_LOGOUT_SUCCESS = 'account/FETCH_LOGOUT_SUCCESS';
 const fetchLogoutRequest = createAction(FETCH_LOGOUT_REQUEST)();
 const fetchLogoutSuccess = createAction(FETCH_LOGOUT_SUCCESS)();
 

@@ -35,22 +35,22 @@ export const initialState: State = {
 };
 
 export default createReducer<State, ActionsType>(initialState, {
-  'Account/FETCH_LOGIN_FAILURE': function (state) {
+  'account/FETCH_LOGIN_FAILURE': function (state) {
     return produce(state, (draft: Draft<State>) => {
       draft.logged = undefined;
     });
   },
-  'Account/FETCH_GET_LOGGED_INFO_SUCCESS': function (state, action) {
+  'account/FETCH_GET_LOGGED_INFO_SUCCESS': function (state, action) {
     return produce(state, (draft: Draft<State>) => {
       draft.logged = action.payload;
     });
   },
-  'Account/FETCH_GET_LOGGED_INFO_FAILURE': function (state) {
+  'account/FETCH_GET_LOGGED_INFO_FAILURE': function (state) {
     return produce(state, (draft: Draft<State>) => {
       draft.logged = undefined;
     });
   },
-  'Account/FETCH_LOGOUT_SUCCESS': function (state) {
+  'account/FETCH_LOGOUT_SUCCESS': function (state) {
     return produce(state, (draft: Draft<State>) => {
       draft.logged = undefined;
     });

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 export type TextProps = {
   strong?: boolean;
+  text?: string;
 };
 
 const StyledText = styled.span`
@@ -11,8 +12,8 @@ const StyledText = styled.span`
 `;
 
 const Text: React.FC<TextProps> = (props) => {
-  const { children } = props;
-  return <StyledText {...props}>{children}</StyledText>;
+  const { text, children } = props;
+  return <StyledText {...props}>{text || children}</StyledText>;
 };
 
 export default Text;

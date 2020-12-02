@@ -1,55 +1,46 @@
 /* eslint-disable react/require-default-props */
 import React, { memo } from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import styled from 'styled-components';
 
 import Button from '@/components/atoms/Button';
 import GridBox from '@/components/atoms/GridBox';
 import useAccount from '@/hooks/useAccount';
+import { primary } from '@/theme';
 
 const MemoButton = memo(Button);
 
-const useStyles = makeStyles((theme: Theme) => {
-  const { palette } = theme;
-
-  return createStyles({
-    rowSpacing: {
-      margin: '3px',
-    },
-    logoutBtn: {
-      marginLeft: '3px',
-      color: palette.primary.dark,
-    },
-  });
-});
+const StyledContainer = styled(GridBox)`
+  .row-spacing {
+    margin: 3px;
+  }
+  .login-btn {
+    margin-left: 3px;
+    color: ${primary.dark};
+  }
+`;
 
 const LogoutBox = () => {
   const { account, fetchLogout } = useAccount();
-  const classes = useStyles();
 
-  const logout = async () => {
-    const logoutResult = await fetchLogout();
-    console.log('logoutResult', logoutResult);
+  const logout = () => {
+    fetchLogout();
   };
 
   return (
-    <GridBox container direction="column">
-      <GridBox item className={classes.rowSpacing}>
+    <StyledContainer container direction="column">
+      <GridBox item className="row-spacing">
         {account.logged?.name}님 환영합니다.
       </GridBox>
-      <GridBox item className={classes.rowSpacing} />
-      <GridBox item className={classes.rowSpacing}>
+      <GridBox item className="row-spacing" />
+      <GridBox item className="row-spacing">
         <GridBox container justify="flex-end">
           <MemoButton variant="outlined">Join</MemoButton>
-          <MemoButton
-            variant="outlined"
-            className={classes.logoutBtn}
-            onClick={logout}
-          >
+          <MemoButton variant="outlined" className="login-btn" onClick={logout}>
             Logout
           </MemoButton>
         </GridBox>
       </GridBox>
-    </GridBox>
+    </StyledContainer>
   );
 };
 export default LogoutBox;

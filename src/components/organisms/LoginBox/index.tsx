@@ -1,36 +1,29 @@
 /* eslint-disable react/require-default-props */
 import React, { memo, useState } from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import styled from 'styled-components';
 
 import Button from '@/components/atoms/Button';
 import GridBox from '@/components/atoms/GridBox';
 import IconLabeledInput from '@/components/molecules/IconLabeledInput';
 import useAccount from '@/hooks/useAccount';
-
-// import { observer } from 'mobx-react-lite';
-// import { useMst } from '@/stores';
+import { primary } from '@/theme';
 
 const MemoInput = memo(IconLabeledInput);
 const MemoButton = memo(Button);
 
-const useStyles = makeStyles((theme: Theme) => {
-  const { palette } = theme;
-
-  return createStyles({
-    rowSpacing: {
-      margin: '3px',
-    },
-    loginBtn: {
-      marginLeft: '3px',
-      color: palette.primary.dark,
-    },
-  });
-});
+const StyledContainer = styled(GridBox)`
+  .row-spacing {
+    margin: 3px;
+  }
+  .login-btn {
+    margin-left: 3px;
+    color: ${primary.dark};
+  }
+`;
 
 const LoginBox = () => {
   const { fetchLogin } = useAccount();
 
-  const classes = useStyles();
   const [user, setUser] = useState({
     username: '',
     password: '',
@@ -52,8 +45,8 @@ const LoginBox = () => {
   };
 
   return (
-    <GridBox container direction="column">
-      <GridBox item className={classes.rowSpacing}>
+    <StyledContainer container direction="column">
+      <GridBox item className="row-spacing">
         <MemoInput
           fullWidth
           placeholder="Account ID"
@@ -65,7 +58,7 @@ const LoginBox = () => {
           value={user.username}
         />
       </GridBox>
-      <GridBox item className={classes.rowSpacing}>
+      <GridBox item className="row-spacing">
         <MemoInput
           fullWidth
           placeholder="Password"
@@ -76,19 +69,15 @@ const LoginBox = () => {
           onChange={inputUser}
         />
       </GridBox>
-      <GridBox item className={classes.rowSpacing}>
+      <GridBox item className="row-spacing">
         <GridBox container justify="flex-end">
           <MemoButton variant="outlined">Join</MemoButton>
-          <MemoButton
-            variant="outlined"
-            className={classes.loginBtn}
-            onClick={login}
-          >
+          <MemoButton variant="outlined" className="login-btn" onClick={login}>
             Login
           </MemoButton>
         </GridBox>
       </GridBox>
-    </GridBox>
+    </StyledContainer>
   );
 };
 export default LoginBox;
