@@ -7,11 +7,11 @@ import useRole from '@/hooks/useRole';
 import useAuth from '@/hooks/useAuth';
 import useSystem from '@/hooks/useSystem';
 import { Role } from '@/redux/Role/reducer';
-import { Auth } from '@/redux/Auth/reducer';
+// import { Auth } from '@/redux/Auth/reducer';
 
 const RoleDetailPage = () => {
   const history = useHistory();
-  const { showAlert, showConfirm } = useSystem();
+  const { showConfirm } = useSystem();
 
   const {
     role,
@@ -19,7 +19,7 @@ const RoleDetailPage = () => {
     fetchPostRole,
     resetEditableRole,
   } = useRole();
-  const { auth, fetchGetAuthorities } = useAuth();
+  const { fetchGetAuthorities } = useAuth();
 
   useEffect(() => {
     fetchGetAuthorities();
@@ -59,7 +59,7 @@ const RoleDetailPage = () => {
         // })),
       },
     }),
-    [auth.list]
+    []
   );
 
   const goBack = async () => {

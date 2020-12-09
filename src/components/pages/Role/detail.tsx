@@ -34,8 +34,8 @@ const detailColumns: DetailColumn[] = [
 
 const RoleDetailPage = () => {
   const history = useHistory();
-  const { showAlert, showConfirm } = useSystem();
-  const { auth, fetchGetAuthorities } = useAuth();
+  const { showConfirm } = useSystem();
+  const { fetchGetAuthorities } = useAuth();
 
   const {
     role,
@@ -98,7 +98,7 @@ const RoleDetailPage = () => {
         // })),
       },
     }),
-    [auth.list]
+    []
   );
 
   const goBack = () => {
