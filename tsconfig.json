@@ -23,6 +23,7 @@
   },
   "extends": "./tsconfig.paths.json",
   "include": [
-    "src"
+    "src",
+    "./src/types/react-barcode-reader.d.ts"
   ]
 }
