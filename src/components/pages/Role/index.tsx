@@ -44,10 +44,10 @@ const RolePage = () => {
   };
 
   const onCellClick = (cellData: CellParams) => {
-    const { data } = cellData;
+    const { row } = cellData;
 
-    if (data) {
-      history.push(`/role/detail/${data.id}`);
+    if (row) {
+      history.push(`/role/detail/${row.id}`);
     }
   };
 
